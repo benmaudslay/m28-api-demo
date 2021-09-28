@@ -1,38 +1,6 @@
 import React, { useState, useEffect } from "react"
+import styled from "styled-components"
 import "./App.css";
-
-// class App extends React.Component {
-//   state = {
-//     data: {}
-//   }
-
-//   handleFetch = async () => {
-//     let response = await fetch(
-//       "https://swquotesapi.digitaljedi.dk/api/SWQuote/RandomStarWarsQuote"
-//     );
-//     let data = await response.json();
-//     this.setState({ data: data })
-//   }
-
-//   componentDidMount() {
-//     this.handleFetch()
-//   }
-
-//   componentDidUpdate() {
-//     console.log("I just updated!")
-//   }
-
-//   render() {
-//     const { data } = this.state
-//     return (
-//       <div>
-//         <h1>Star Wars</h1>
-//         <button onClick={this.handleFetch}>handleFetch</button>
-//         <p>{data.content}</p>
-//       </div>
-//     )
-//   }
-// }
 
 const App = () => {
   const [data, setData] = useState({})
@@ -55,12 +23,35 @@ const App = () => {
 
 
   return (
-    <div>
-      <h1>Star Wars</h1>
-      <button onClick={handleFetch}>handleFetch</button>
+    <StyledWrapper force={data.faction === 0 ? "light" : "dark"}>
+      <h1 className="title">Star Wars</h1>
       <p>{data.content}</p>
-    </div>
+      <button onClick={handleFetch}>handleFetch</button>
+    </StyledWrapper>
   );
 };
+
+const StyledWrapper = styled.div`
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: ${props => props.force === "dark" ? "black" : "white"};
+  color: ${props => props.force === "light" ? "black" : "white"};
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  .title {
+    margin: 10px;
+    color: ${props => props.force === "light" ? "blue" : "red"};
+  }
+
+  .title:hover {
+    transform: scale(1.5);
+
+  }
+`
 
 export default App;
